@@ -27,3 +27,6 @@ print("\n",frutas)
 
 frutas.insert(1,1234)
 print("\n",frutas)
+
+frutas.remove(1,1234)
+print("\n",frutas)
