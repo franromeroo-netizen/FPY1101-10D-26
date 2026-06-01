@@ -15,6 +15,37 @@ def agregar_producto(productos):
     productos[nombre] = [stock, precio]
     print("¡Productos agregados correctamente!")
 
+def mostrar_productos(productos):
+    if len(productos) == 0:
+        print("No existen productos")
+        return
+    for nombre in productos:
+        print(nombre, "--Stock:",productos[nombre][0],"--Precio:",productos[nombre][1])
+
+def buscar_producto(productos):
+    if len(productos) == 0:
+        print("No existen productos")
+        return
+    nombre = input("Nombre del producto: ").strip()
+
+    if nombre in productos:
+        print(f"""Producto encontrado!
+Stock: {productos[nombre][0]}
+Precio: ${productos[nombre][1]}""")
+    
+def producto_mas_caro(productos):
+    if len(productos) == 0:
+        print("No existen productos")
+        return
+    
+    mayor = 0
+    mayor_nombre = nombre
+
+    for nombre in productos:
+        precio = productos[nombre][1]
+
+        if precio > mayor:
+            print
 
 productos = {
     "Mouse" : [10, 15000],
@@ -26,7 +57,7 @@ productos = {
 
 menu = True
 while menu:
-    print("""======Menu======
+    print("""\n======Menu======
 1. Agregar producto
 2. Mostrar productos
 3. Buscar producto
@@ -39,20 +70,20 @@ while menu:
             agregar_producto(productos)
 
         elif op_menu == 2:
-            print
+            mostrar_productos(productos)
 
         elif op_menu == 3:
-            print
+            buscar_producto(productos)
 
         elif op_menu == 4:
-            print
+            producto_mas_caro(productos)
 
         elif op_menu == 5:
-            print("\nCerrando sesión...\n")
+            print("Cerrando sesión...")
             menu = False
 
         else:
-            print("\nIngrese un número válido, por favor.\n")
+            print("Ingrese un número válido, por favor.")
 
     except ValueError:
-        print("\nIngrese un número válido, por favor.\n")
+        print("Ingrese un número válido, por favor.")
