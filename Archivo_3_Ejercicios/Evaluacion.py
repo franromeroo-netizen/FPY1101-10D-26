@@ -1,8 +1,3 @@
-usuarios_registrados = {
-    
-}
-
-
 def ingresar():
     
     nombre = input("Ingrese nombre de usuario: ").strip()
@@ -26,42 +21,76 @@ def ingresar():
 
     contrasena = input("Ingrese contraseña: ")
 
+    letras = 0
+    digitos = 0
+    for foo in contrasena:
+        if foo.isdigit():
+            digitos += 1
+
+        if foo.isalpha():
+            letras += 1
+
+    if digitos < 1 and letras < 1:
+        print("La contraseña debe tener al menos 1 letra y 1 número")
+        return
+
     if len(contrasena) < 8:
         print("Contraseña muy corta")
         return
-    
-    if "" not in contrasena:
+        
+    if " " in contrasena:
         print("La contraseña no puede tener espacios")
         return
     
-    if contrasena.isdigit() and contrasena.isalpha():
-        print("La contraseña debe contener al menos 1 letra y 1 número")
-        return
 
     usuarios_registrados[nombre] = [sexo, contrasena]
 
-def buscar(usuarios_registrados):
+def buscar():
 
-
-    if len(usuarios_registrados) == "":
+    if len(usuarios_registrados) == 0:
         print("No hay usuarios registrados...")
+        return
 
-    usuario = input("Bucar usuario: ")
+    usuario = input("Buscar usuario: ").strip()
 
     if usuario in usuarios_registrados:
-        print("Usuario encontrado:")
-        print(usuarios_registrados[0, 1])
+        datos = usuarios_registrados[usuario]
+        print(f"""Usuario encontrado:
+Usuario: {usuario}
+Sexo: {datos[0]}
+Contraseña: {datos[1]}""")
+    else:
+        print("Usuario no encontrado")
+        return
 
     
 
-def eliminar(usuarios_registrados):
-    print
+def eliminar():
+    
+    if len(usuarios_registrados) == 0:
+        print("No hay usuarios registrados para eliminar...")
+        return
+
+    usuario = input("Ingrese el nombre del usuario a eliminar: ").strip()
+
+    if usuario in usuarios_registrados:
+        del usuarios_registrados[usuario]
+        print(f"Usuario '{usuario}' eliminado correctamente.")
+    else:
+        print("El usuario no existe.")
+
+
+#Diccionarios
+
+usuarios_registrados = {}
 
 opciones = {
     1: ingresar,
     2: buscar,
     3: eliminar
 }
+
+#Menú
 
 menu = True
 while menu:
@@ -83,8 +112,7 @@ while menu:
         menu = False
     
     elif op_menu in opciones:
-        i = ingresar()
-        seleccion = [op_menu](i)
+        opciones[op_menu]()
     
     else:
         print("Ingrese un número válido para seleccionar")
