@@ -14,7 +14,7 @@ def ingresar():
     
     sexo = input("Ingrese su sexo (M o F): ").upper()
 
-    if sexo != "M" or sexo != "F":
+    if sexo != "M" and sexo != "F":
         print("Solo puedes escribir M o F, para masculino o femenino")
         return
 
@@ -42,7 +42,10 @@ def ingresar():
         return
     
 
-    usuarios_registrados[nombre] = [sexo, contrasena]
+    usuarios_registrados[nombre] = {
+        "sexo": sexo,
+        "contraseña": contrasena
+    }
 
 def buscar():
 
@@ -56,8 +59,8 @@ def buscar():
         datos = usuarios_registrados[usuario]
         print(f"""Usuario encontrado:
 Usuario: {usuario}
-Sexo: {datos[0]}
-Contraseña: {datos[1]}""")
+Sexo: {datos['sexo']}
+Contraseña: {datos['contraseña']}""")
     else:
         print("Usuario no encontrado")
         return
