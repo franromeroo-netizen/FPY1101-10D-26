@@ -1,0 +1,97 @@
+def ingresar():
+    nombre = input("Ingrese nombre de usuario: ").strip()
+
+    if len(nombre) == 0:
+        print("No ingresó nombre de usuario.")
+        return
+
+    if nombre in usuarios_registrados:
+        print("Nombre de usuario ya registrado.")
+        return
+
+    sexo = input("Ingrese sexo del usuario (F o M): ").upper().strip()
+    
+    if sexo != "F" and sexo != "M":
+        print("No ingreso correctamente el sexo del usuario.")
+        return
+    
+
+    contrasena = input("Ingrese contraseña de usuario: ")
+
+    digito = 0
+    letra = 0
+    for foo in contrasena:
+        if foo.isdigit():
+            digito += 1
+
+        if foo.isalpha():
+            letra += 1
+
+    if digito < 1 and letra < 1:
+        print("La contraseña tiene que tener al menos 1 número y 1 letra.")
+        return
+    
+    if len(contrasena) > 8:
+        print("La contraseña no puede tener menos de 8 caracteres.")
+        return
+    
+    if " " in contrasena:
+        print("La contraseña no puede llevar espacio.")
+        return
+    
+    usuarios_registrados[nombre] = [sexo, contrasena]
+
+def buscar():
+    if len(usuarios_registrados) == 0:
+        print("No hay usuarios registrados para buscar.")
+        return
+
+    datos = input("Ingrese nombre de usuario a buscar: ")
+
+    if datos in usuarios_registrados:
+        print(f"""Usuario encontrado:
+Nombre: {datos}
+Sexo: {usuarios_registrados[datos][0]}
+Contraseña: {usuarios_registrados[datos][1]}""")
+
+def eliminar():
+    if len(usuarios_registrados) == 0:
+        print("No hay usuarios registrados para eliminar.")
+        return
+
+    datos = input("Ingrese nombre de usuario a eliminar: ")
+
+    if datos in usuarios_registrados:
+        del usuarios_registrados[datos]
+        print(f"Se ha eliminado satisfactoriamente: {datos}")
+
+usuarios_registrados = {}
+
+opciones = {
+    1: ingresar,
+    2: buscar,
+    3: eliminar
+}
+
+menu = True
+while menu:
+    print("""___Menú de usuarios___
+1.- Ingresar usuario.
+2.- Buscar usuario.
+3.- Eliminar usuario.
+4.- Salir.""")
+    while True:
+        try:
+            op_menu = int(input("--> "))
+            break
+        except ValueError:
+            print("Ingrese un valor númerico respectivo al menú")
+            
+    if op_menu == 4:
+        print("Saliendo... ")
+        menu = False
+
+    elif op_menu in opciones:
+        opciones[op_menu]()
+    else:
+        print("Ingrese un número correspondiente a los del menú")
