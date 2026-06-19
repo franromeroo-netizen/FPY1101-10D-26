@@ -1,4 +1,4 @@
-from funciones import opciones
+
 menu = True
 while menu:
     print("""======Menú catálogo de videojuegos======
@@ -9,10 +9,14 @@ while menu:
 ● Opción 5: Pagar Carrito.
 ● Opción 6: Ver mi Biblioteca.
 ● Opción 7: Salir.""")
-    opcion = int(input("--> "))
+    try:
+        opcion = int(input("--> "))
+    except ValueError:
+        print("Solo puede ingresar números respectivos al menú.")
+        continue
 
     if opcion == 7:
-        print("Saliendo")
+        print("Saliendo...")
         menu = False
     elif opcion == 1:
         print
@@ -31,3 +35,6 @@ while menu:
 
     elif opcion == 6:
         print
+
+    else:
+        print("Solo puede ingresar números respectivos al menú.")
