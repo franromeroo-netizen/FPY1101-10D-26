@@ -1,5 +1,11 @@
+def validacion_siglas_existe(sigla):
+    if sigla not in consolas:
+        return True
+    else:
+        return False
+        
 def validacion_siglas(sigla):
-    return 2 <= len(sigla.upper().strip()) <= 5
+    return 2 <= len(sigla.upper().strip().isalpha()) <= 5
 
 def validacion_nombre(nombre):
     return 3 <= len(nombre.strip().title()) <= 40
@@ -27,13 +33,17 @@ def validacion_stock(stock):
         return stock_int >= 0
     except ValueError:
         return False
+    
 
-def agregar():
+def agregar(consolas, ventas):
     sigla = input("Ingrese siglas de la consola a agregar:\n--> ").upper().strip()
     if not validacion_siglas(sigla):
         print("ERROR. Siglas inválidas.")
         return
-
+    if not validacion_siglas_existe(sigla):
+        print("ERROR. Siglas inválidas, al parecer el vehículo ya está registrado.")
+        return
+    
     nombre = input("Ingrese nombre de la consola a agregar:\n--> ").strip().title()
     if not validacion_nombre(nombre):
         print("ERROR. Nombre inválido.")
@@ -58,10 +68,28 @@ def agregar():
     if not validacion_stock(stock):
         print("ERROR. Stock inválido.")
         return
-    if  consolas["sigla"] != sigla:
-        consolas["sigla"] = sigla
-        consolas
+#==========================================================
+   
+    lista_consola = [nombre, fabricante, anio_lanzamiento]
 
+    consola_agregada = {
+
+        sigla : lista_consola
+    }
+
+    consolas.append(consola_agregada)
+     
+#==========================================================
+
+    lista_ventas = [precio, stock]
+    
+    precio_stock_consola = {
+
+        sigla : lista_ventas
+    }
+    ventas.append(precio_stock_consola)
+            
+#==========================================================
     
     
 
@@ -86,7 +114,7 @@ while True:
         print("ERROR. Selección inválida, ingrese nuevamente un número respectivo al menú.")
 
     if opcion == 1:
-        agregar()
+        agregar(consolas, ventas)
 
     elif opcion == 2:
         print
