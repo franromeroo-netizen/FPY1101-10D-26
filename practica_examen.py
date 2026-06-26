@@ -1,11 +1,11 @@
-def validacion_siglas_existe(sigla):
-    if sigla not in consolas:
+def validacion_siglas_existe(siglas):
+    if siglas not in consolas:
         return True
     else:
         return False
         
-def validacion_siglas(sigla):
-    return 2 <= len(sigla.upper().strip().isalpha()) <= 5
+def validacion_siglas(siglas):
+    return 2 <= len(siglas.upper().strip().isalpha()) <= 5
 
 def validacion_nombre(nombre):
     return 3 <= len(nombre.strip().title()) <= 40
@@ -36,11 +36,11 @@ def validacion_stock(stock):
     
 
 def agregar(consolas, ventas):
-    sigla = input("Ingrese siglas de la consola a agregar:\n--> ").upper().strip()
-    if not validacion_siglas(sigla):
+    siglas = input("Ingrese siglas de la consola a agregar:\n--> ").upper().strip()
+    if not validacion_siglas(siglas):
         print("ERROR. Siglas inválidas.")
         return
-    if not validacion_siglas_existe(sigla):
+    if not validacion_siglas_existe(siglas):
         print("ERROR. Siglas inválidas, al parecer el vehículo ya está registrado.")
         return
     
@@ -68,33 +68,31 @@ def agregar(consolas, ventas):
     if not validacion_stock(stock):
         print("ERROR. Stock inválido.")
         return
-#==========================================================
    
-    lista_consola = [nombre, fabricante, anio_lanzamiento]
+    consolas[siglas] = [nombre, fabricante, int(anio_lanzamiento)]
 
-    consola_agregada = {
-
-        sigla : lista_consola
-    }
-
-    consolas.append(consola_agregada)
-     
-#==========================================================
-
-    lista_ventas = [precio, stock]
-    
-    precio_stock_consola = {
-
-        sigla : lista_ventas
-    }
-    ventas.append(precio_stock_consola)
+    ventas[siglas] = [float(precio), int(stock)]
             
-#==========================================================
+#=============================================================================================
     
-    
-
+def buscar(consolas, ventas):
+    sigla = input("Ingrese siglas de consola a buscar:\n--> ")
+    mostrar(sigla, consolas, ventas)
 #=============================================================================================
 
+def eliminar():
+    print
+
+#=============================================================================================
+def mostrar(sigla, consolas, ventas):
+
+    if len(consolas) == 0:
+        print("ERROR. No hay consolas.")
+        return
+    else:
+        for sigla, datos in consolas.items():
+            nombre, fabricante, año = datos
+            precio, stock = ventas[sigla]
 
 #=============================================================================================
 
@@ -117,13 +115,13 @@ while True:
         agregar(consolas, ventas)
 
     elif opcion == 2:
-        print
+        buscar(sigla, consolas, ventas)
 
     elif opcion == 3:
-        print
+        eliminar()
 
     elif opcion == 4:
-        print
+        mostrar(consolas, ventas)
 
     elif opcion == 5:
         print("Gracias por preferirnos.\nSaliendo...")
